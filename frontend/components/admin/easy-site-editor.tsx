@@ -1,0 +1,46 @@
+"use client";
+import { useEffect, useRef, useState, type RefObject } from 'react';
+import { api } from '@/lib/api';
+import type { SiteCopyEntry, SiteCopyMap } from '@/lib/site-copy';
+import { ImageField } from './cms-fields';
+type CopyRow = SiteCopyEntry & { key: string };
+type ImageRow = { key: string; original: string; src: string; route: string; alt: string };
+export function EasySiteEditor({ settings, frameRef, route, onPreview, onSaved, onFilm, onNotify, onStateChange }: { settings: Record<string, any>; frameRef: RefObject<HTMLIFrameElement | null>; route: string; onPreview: (patch: any) => void; onSaved: (settings: any) => void; onFilm: () => void; onNotify: (text: string) => void; onStateChange?: (state: { dirty: boolean; saving: boolean; save: () => Promise<boolean> }) => void }) {
+  const [rows, setRows] = useState<CopyRow[]>([]), [selected, setSelected] = useState<CopyRow | null>(null), [search, setSearch] = useState('');
+  const [copy, setCopy] = useState<SiteCopyMap>(settings.siteCopyOverrides || {}), [motion, setMotion] = useState(settings.siteMotion || { style: 'subtle' });
+  const [dirty, setDirty] = useState(false), [saving, setSaving] = useState(false);
+  const [images, setImages] = useState<ImageRow[]>([]), [selectedImage, setSelectedImage] = useState<ImageRow | null>(null);
+  const [media, setMedia] = useState<Record<string, { original: string; src: string; route: string }>>(settings.siteMediaOverrides || {});
+  const editRef = useRef<HTMLTextAreaElement>(null);
+  const photoPanelRef = useRef<HTMLDetailsElement>(null);
+  useEffect(() => { if (selectedImage) photoPanelRef.current?.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }); }, [selectedImage?.key]);
+  useEffect(() => { if (selected) editRef.current?.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }); }, [selected?.key]);
+  useEffect(() => { if (!dirty) { setCopy(settings.siteCopyOverrides || {}); setMedia(settings.siteMediaOverrides || {}); setMotion(settings.siteMotion || { style: 'subtle' }); } }, [settings, dirty]);
+  useEffect(() => { setRows([]); setImages([]); setSelected(null); setSelectedImage(null); setSearch(''); }, [route]);
+  useEffect(() => {
+    const message = (event: MessageEvent) => {
+      if (event.origin !== location.origin || event.source !== frameRef.current?.contentWindow || event.data?.route !== route) return;
+      const data = event.data;
+      if (data.type === 'atelier:canvas-image-list' && Array.isArray(data.entries)) setImages(data.entries.filter((row: ImageRow) => typeof row.key === 'string' && typeof row.original === 'string' && typeof row.src === 'string' && row.route === route).slice(0, 200));
+      if (data.type === 'atelier:canvas-image-selected' && typeof data.key === 'string' && typeof data.original === 'string' && typeof data.src === 'string') setSelectedImage(data);
+      if (data.type === 'atelier:canvas-copy-list' && Array.isArray(data.entries)) setRows(data.entries.filter((row: CopyRow) => typeof row.key === 'string' && typeof row.original === 'string' && typeof row.text === 'string' && row.route === route).slice(0, 400));
+      if (data.type === 'atelier:canvas-copy-selected' && typeof data.key === 'string' && typeof data.original === 'string' && typeof data.text === 'string') setSelected(data);
+    };
+    window.addEventListener('message', message); return () => window.removeEventListener('message', message);
+  }, [frameRef, route]);
+  const preview = (next: SiteCopyMap, nextMotion = motion, nextMedia = media) => { setCopy(next); setMotion(nextMotion); setMedia(nextMedia); setDirty(true); onPreview({ siteCopyOverrides: next, siteMediaOverrides: nextMedia, siteMotion: nextMotion }); };
+  const save = async () => {
+    if (!dirty) return true;
+    setSaving(true);
+    try { const saved = await api('/admin/settings', { method: 'PUT', body: JSON.stringify({ siteCopyOverrides: copy, siteMediaOverrides: media, siteMotion: motion }) }); onSaved(saved); setDirty(false); window.dispatchEvent(new CustomEvent('atelier:data-changed')); onNotify('Your website words, photos and text effects are now live.'); return true; }
+    catch (error: any) { onNotify(`Not saved yet. Your draft is still here. ${error.message}`); return false; }
+    finally { setSaving(false); }
+  };
+  useEffect(() => { onStateChange?.({ dirty, saving, save }); }, [dirty, saving, copy, motion, media]);
+  return <section className="easy-site-editor" aria-label="Easy website editing"><fieldset disabled={saving}>
+    <div className="easy-studio-intro"><div><span className="eyebrow">NO CODE NEEDED</span><h3>What would you like to change?</h3><p>1. Choose a page. 2. Click its words or pictures in the preview. 3. Edit and save.</p></div><span className="easy-save-state" role="status">{dirty ? 'Website edits not published yet' : 'Website edits saved'}</span></div>
+    <div className="easy-studio-tasks"><button type="button" onClick={() => editRef.current?.focus()}><b>✎ Edit words</b><small>Click text in the preview or find it below</small></button><button type="button" onClick={onFilm}><b>▱ Film & cards</b><small>6 layouts, photos and card content</small></button><a href="?section=products" target="_blank" rel="noopener"><b>▦ Product details</b><small>Names, prices, sizes and product photos</small></a><a href="?section=navigation" target="_blank" rel="noopener"><b>↗ Website menus</b><small>Header, footer and page links</small></a></div>
+    <details className="easy-copy-panel" open><summary>Website words & text effects</summary><div className="easy-copy-grid"><div><label className="field">Find text on this page<input value={search} onChange={event => setSearch(event.target.value)} placeholder="Search a heading, button or paragraph…" /></label><div className="easy-copy-list">{rows.filter(row => `${row.original} ${row.text}`.toLowerCase().includes(search.toLowerCase())).map(row => <button type="button" key={row.key} aria-pressed={selected?.key === row.key} onClick={() => setSelected(row)}>{row.text || '(empty text)'}</button>)}{!rows.length && <p>Wait for the preview to load, then scroll it to find more words.</p>}</div></div><div><label className="field">Replace the selected words<textarea ref={editRef} rows={5} disabled={!selected || saving} value={selected ? copy[selected.key]?.text ?? selected.text : ''} placeholder="Click words in the website preview first" onChange={event => { if (selected) preview({ ...copy, [selected.key]: { original: selected.original, route: selected.route, scope: selected.scope, text: event.target.value } }); }} /></label>{selected && <><small>Original: {selected.original}</small><button type="button" className="btn text" onClick={() => { const next = { ...copy }; delete next[selected.key]; setSelected({ ...selected, text: selected.original }); preview(next); }}>Restore original words</button></>}<label className="field">Text effects across the website<select value={motion.style || 'subtle'} onChange={event => preview(copy, { style: event.target.value })}><option value="subtle">Gentle highlight</option><option value="lift">Soft lift</option><option value="glow">Soft glow</option><option value="underline">Underline on hover</option><option value="none">Off</option></select></label><p className="settings-help">Preview first, then publish. Product facts belong in Products. Customer details and payment amounts are kept out of this text tool.</p><button type="button" className="btn dark" disabled={!dirty || saving} onClick={() => void save()}>{saving ? 'Publishing…' : 'Publish website edits'}</button>{dirty && <button type="button" className="btn text" disabled={saving} onClick={() => { setDirty(false); setSelected(null); onPreview({ siteCopyOverrides: settings.siteCopyOverrides || {}, siteMediaOverrides: settings.siteMediaOverrides || {}, siteMotion: settings.siteMotion || { style: 'subtle' } }); }}>Discard website edits</button>}</div></div></details>
+    <details ref={photoPanelRef} className="easy-copy-panel" open={!!selectedImage}><summary>Page photos · click a picture to replace it</summary><div className="easy-image-list">{images.map(image => <button key={image.key} type="button" aria-label={`Edit ${image.alt || 'page photo'}`} aria-pressed={selectedImage?.key === image.key} onClick={() => setSelectedImage(image)}><img src={image.src} alt={image.alt || 'Page photo'} /></button>)}</div>{selectedImage && <><ImageField label="Replace this page photo" value={media[selectedImage.key]?.src || selectedImage.src} onNotify={onNotify} onChange={src => preview(copy, motion, { ...media, [selectedImage.key]: { original: selectedImage.original, route, src } })} /><button className="btn text" type="button" onClick={() => { const next = { ...media }; delete next[selectedImage.key]; setSelectedImage({ ...selectedImage, src: selectedImage.original }); preview(copy, motion, next); }}>Restore original photo</button></>}<p className="settings-help">Page artwork is listed here. Change product photos in Products. Use Publish website edits above when you are ready.</p></details>
+  </fieldset></section>;
+}

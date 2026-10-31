@@ -1,0 +1,141 @@
+{
+  "license_note": "Unsplash photo pages used below are marked free to use under the Unsplash License on the source pages. Existing ATELIER local assets remain bundled and are used as automatic fallbacks.",
+  "source_pages": [
+    "https://unsplash.com/photos/man-in-beige-button-up-long-sleeve-shirt-and-black-pants-standing-beside-gray-concrete-wall-2_IUIVbwpSQ",
+    "https://unsplash.com/photos/man-in-beige-zip-up-jacket-xq4dMN5fL1U",
+    "https://unsplash.com/photos/man-in-white-t-shirt-and-black-pants-standing-on-white-floor-ylHcWlrMlzs",
+    "https://unsplash.com/photos/man-wearing-black-blazer-v6771a4avV4",
+    "https://unsplash.com/photos/man-modeling-denim-jacket-UNSj7BtOK0Q",
+    "https://unsplash.com/photos/man-in-black-coat-standing-beside-black-steel-gate-during-daytime-QVFhb-CeBwU",
+    "https://unsplash.com/photos/man-in-black-polo-shirt-f67Caxg3akg",
+    "https://unsplash.com/photos/woman-in-beige-jumpsuit-smiling-sitting-on-a-stool-IxacjtwPdGM",
+    "https://unsplash.com/photos/a-woman-leans-against-a-wall-with-arms-raised-kJVJkGz4-gQ",
+    "https://unsplash.com/photos/woman-in-black-blazer-and-sunglasses-posing-ErMin2aKLqM",
+    "https://unsplash.com/photos/a-woman-in-a-black-blazer-is-posing-for-a-picture-McphCr9gWec",
+    "https://unsplash.com/photos/woman-wearing-a-patterned-tunic-and-pants-ensemble-o2WOzgAWBkM",
+    "https://unsplash.com/photos/a-man-standing-next-to-a-woman-in-a-black-dress-idXh2FNDhJo",
+    "https://unsplash.com/photos/young-woman-in-white-suit-posing-against-white-background-7uDwMv9FlrQ",
+    "https://unsplash.com/photos/woman-in-brown-suit-jacket-sitting-by-the-table-rmQSXNcM80Y",
+    "https://unsplash.com/photos/man-wearing-black-pants-8Ie16s1HrVU"
+  ],
+  "remote_assets": {
+    "classicLinenShirt": [
+      "https://images.unsplash.com/photo-1614492025699-2a9ea5b8c58b?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-in-beige-button-up-long-sleeve-shirt-and-black-pants-standing-beside-gray-concrete-wall-2_IUIVbwpSQ"
+    ],
+    "texturedOvershirt": [
+      "https://images.unsplash.com/photo-1548897573-896002229eab?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-in-beige-zip-up-jacket-xq4dMN5fL1U"
+    ],
+    "relaxedFitTshirt": [
+      "https://images.unsplash.com/photo-1584865288642-42078afe6942?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-in-white-t-shirt-and-black-pants-standing-on-white-floor-ylHcWlrMlzs"
+    ],
+    "tailoredBlazer": [
+      "https://images.unsplash.com/photo-1543132220-4bf3de6e10ae?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-wearing-black-blazer-v6771a4avV4"
+    ],
+    "denimJacket": [
+      "https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-modeling-denim-jacket-UNSj7BtOK0Q"
+    ],
+    "structuredWoolCoat": [
+      "https://images.unsplash.com/photo-1597208631566-21eb136a600c?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-in-black-coat-standing-beside-black-steel-gate-during-daytime-QVFhb-CeBwU"
+    ],
+    "essentialKnitPolo": [
+      "https://images.unsplash.com/photo-1625910513399-c9fcba54338c?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-in-black-polo-shirt-f67Caxg3akg"
+    ],
+    "relaxedOxfordShirt": [
+      "https://images.unsplash.com/photo-1572597885273-41010798881e?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-wearing-gray-suit-jacket-B6My70gancI"
+    ],
+    "wideLegTrousers": [
+      "https://images.unsplash.com/photo-1564402774618-1848e1fe9694?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-wearing-black-pants-8Ie16s1HrVU"
+    ],
+    "minimalRibbedDress": [
+      "https://images.unsplash.com/photo-1770199105820-2e12ecee91a1?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/woman-in-black-dress-reaching-through-sheer-fabric-sadFpDs1uaM"
+    ],
+    "heroWomanBlackBlazer": [
+      "https://images.unsplash.com/photo-1770254081961-d4719910ba77?auto=format&fit=crop&w=2400&q=84",
+      "https://unsplash.com/photos/woman-in-black-blazer-and-sunglasses-posing-ErMin2aKLqM"
+    ],
+    "heroWomanBlazer": [
+      "https://images.unsplash.com/photo-1642229105108-8263fbb298a7?auto=format&fit=crop&w=2400&q=84",
+      "https://unsplash.com/photos/a-woman-in-a-black-blazer-is-posing-for-a-picture-McphCr9gWec"
+    ],
+    "indoWestern": [
+      "https://images.unsplash.com/photo-1767428827715-e5bad0f9a98e?auto=format&fit=crop&w=2200&q=83",
+      "https://unsplash.com/photos/woman-wearing-a-patterned-tunic-and-pants-ensemble-o2WOzgAWBkM"
+    ],
+    "couple": [
+      "https://images.unsplash.com/photo-1724252224460-42ac102d73c5?auto=format&fit=crop&w=2200&q=83",
+      "https://unsplash.com/photos/a-man-standing-next-to-a-woman-in-a-black-dress-idXh2FNDhJo"
+    ],
+    "womanWhiteSuit": [
+      "https://images.unsplash.com/photo-1776273920158-510b171e936f?auto=format&fit=crop&w=2000&q=82",
+      "https://unsplash.com/photos/young-woman-in-white-suit-posing-against-white-background-7uDwMv9FlrQ"
+    ],
+    "womanBrownSuit": [
+      "https://images.unsplash.com/photo-1565101130617-811cb8808600?auto=format&fit=crop&w=2000&q=82",
+      "https://unsplash.com/photos/woman-in-brown-suit-jacket-sitting-by-the-table-rmQSXNcM80Y"
+    ],
+    "womanBlackSleeveless": [
+      "https://images.unsplash.com/photo-1583167463546-12676e914c0a?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/woman-in-black-sleeveless-dress-wearing-black-sunglasses-EFAelEc40_s"
+    ],
+    "womanBlackCouch": [
+      "https://images.unsplash.com/photo-1648459022720-a32827c21505?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/a-woman-in-a-black-dress-sitting-on-a-couch-Mi2LJ2oaPws"
+    ],
+    "architecture": [
+      "https://images.unsplash.com/photo-1776273920158-510b171e936f?auto=format&fit=crop&w=2000&q=82",
+      "https://unsplash.com/photos/young-woman-in-white-suit-posing-against-white-background-7uDwMv9FlrQ"
+    ],
+    "concrete": [
+      "https://images.unsplash.com/photo-1775306413232-fecd45367613?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-wearing-a-light-blue-polo-shirt-and-black-jeans-xwnglFEJ-Uw"
+    ],
+    "blackBlazer": [
+      "https://images.unsplash.com/photo-1770254081961-d4719910ba77?auto=format&fit=crop&w=2400&q=84",
+      "https://unsplash.com/photos/woman-in-black-blazer-and-sunglasses-posing-ErMin2aKLqM"
+    ],
+    "menCollection": [
+      "https://images.unsplash.com/photo-1614492025699-2a9ea5b8c58b?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-in-beige-button-up-long-sleeve-shirt-and-black-pants-standing-beside-gray-concrete-wall-2_IUIVbwpSQ"
+    ],
+    "womenCollection": [
+      "https://images.unsplash.com/photo-1565101130617-811cb8808600?auto=format&fit=crop&w=2000&q=82",
+      "https://unsplash.com/photos/woman-in-brown-suit-jacket-sitting-by-the-table-rmQSXNcM80Y"
+    ],
+    "coupleCollection": [
+      "https://images.unsplash.com/photo-1724252224460-42ac102d73c5?auto=format&fit=crop&w=2200&q=83",
+      "https://unsplash.com/photos/a-man-standing-next-to-a-woman-in-a-black-dress-idXh2FNDhJo"
+    ],
+    "tailoredWoolTrousers": [
+      "https://images.unsplash.com/photo-1564041530925-e69f2031dd1a?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/man-wearing-black-pants-8Ie16s1HrVU"
+    ],
+    "manBlackPoloDark": [
+      "https://images.unsplash.com/photo-1625910513399-c9fcba54338c?auto=format&fit=crop&w=1800&q=82&sat=-20",
+      "https://unsplash.com/photos/man-in-black-polo-shirt-f67Caxg3akg"
+    ],
+    "womanBlackDress": [
+      "https://images.unsplash.com/photo-1770576568711-6ddc46bf27be?auto=format&fit=crop&w=2000&q=82",
+      "https://unsplash.com/photos/a-woman-leans-against-a-wall-with-arms-raised-kJVJkGz4-gQ"
+    ],
+    "womanBlackDressSmall": [
+      "https://images.unsplash.com/photo-1770576568711-6ddc46bf27be?auto=format&fit=crop&w=1800&q=82",
+      "https://unsplash.com/photos/a-woman-leans-against-a-wall-with-arms-raised-kJVJkGz4-gQ"
+    ]
+  },
+  "runtime_policy": {
+    "remote_reference_images": true,
+    "local_fallback_images": true,
+    "retain_existing_assets": true,
+    "offline_sandbox_note": "The build keeps the Unsplash reference URLs and bundled ATELIER fallbacks. This sandbox cannot download remote binaries because outbound DNS/network access is unavailable."
+  }
+}

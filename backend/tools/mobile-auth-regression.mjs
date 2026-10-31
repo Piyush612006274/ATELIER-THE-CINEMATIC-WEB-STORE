@@ -1,0 +1,22 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+const here=path.dirname(fileURLToPath(import.meta.url));
+const root=path.resolve(here,"../..");
+const css=fs.readFileSync(path.join(root,"frontend/app/globals-atelier.css"),"utf8");
+const backend=fs.readFileSync(path.join(root,"backend/src/index.ts"),"utf8");
+const frontend=fs.readFileSync(path.join(root,"frontend/components/storefront/storefront.tsx"),"utf8");
+let failures=0;
+function check(name,ok,detail=""){console.log(`${ok?"PASS":"FAIL"} :: ${name}${detail?` — ${detail}`:""}`);if(!ok)failures++;}
+check("Mobile drawer is a proper flex overlay",css.includes('.overlay[role="dialog"][aria-label="Mobile menu"]')&&/display:flex!important;align-items:stretch!important;justify-content:flex-start!important/.test(css));
+check("Mobile menu panel has bounded width and full viewport height",/\.mobile-menu-panel\s*\{[^}]*width:min\(88vw,360px\)!important;[^}]*height:100%!important/s.test(css));
+check("Mobile links are vertically stacked and touch-friendly",/\.mobile-menu-links button\s*\{[^}]*display:flex!important;[^}]*min-height:48px!important/s.test(css));
+check("Mobile menu utility actions remain visible",css.includes('.mobile-menu-foot{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;'));
+check("Responsive hero overlay exposes the background image",/\.page-home \.hero-reference-board \.hero-reference-overlay\s*\{[^}]*linear-gradient\(0deg/s.test(css));
+check("Responsive hero has a reduced viewport-bounded height",css.includes('.page-home .hero-reference-board{height:min(78svh,720px)!important;min-height:560px!important;max-height:720px!important}'));
+check("Shared login still submits to the single auth endpoint",frontend.includes('api<{user:User}>("/auth/login"')&&frontend.includes('if(r.user.role==="ADMIN")'));
+check("Admin env credential re-sync requires exact server-side match",backend.includes('constantTimeStringEqual(data.password,configuredAdminPassword)')&&backend.includes('email===configuredAdminEmail')&&backend.includes('if(configuredAdminMatch'));
+check("Admin role remains backend-authoritative",backend.includes('if(user.role==="ADMIN")')&&backend.includes('setSession(res,{userId:user.id,role:"ADMIN"})'));
+check("Shared login remains rate-limited",/app\.post\(\"\/api\/auth\/login\",\s*authRateLimit/.test(backend));
+console.log(`MOBILE_AUTH_REGRESSION=${10-failures}/10 ${failures?"FAIL":"PASS"}`);
+process.exitCode=failures?1:0;

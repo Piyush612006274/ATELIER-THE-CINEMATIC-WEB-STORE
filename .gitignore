@@ -1,0 +1,27 @@
+   node_modules/
+.next/
+dist/
+.env
+.env.local
+*.log
+*.tsbuildinfo
+backend/src/generated/
+backend/local-tryon/.venv/
+backend/local-tryon/weights/
+backend/local-tryon/.hf-cache/
+backend/local-tryon/.matplotlib-cache/
+backend/local-tryon/.run-logs/
+backend/local-tryon/fashn-vton-1.5/
+
+# Environment secrets - never commit credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.pem
+*.key
+
+**/node_modules/
+
+**/node_modules/

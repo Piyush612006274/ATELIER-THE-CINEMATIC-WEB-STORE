@@ -1,0 +1,33 @@
+/* Shared design controls apply to the real section, including cinematic and native blocks. */
+.cms-design-section:not(.cms-canvas-section){display:contents}
+.cms-design-section[data-design~="background"] > :first-child{background:var(--design-background)!important}
+.cms-design-section[data-design~="background"] > :first-child::before{background:transparent!important}
+.cms-design-section[data-design~="color"] :is(h1,h2,h3,h4,p,small,label,.eyebrow,.cin-eyebrow,.cin-hero-desc,.cms-copy){color:var(--design-color)!important}
+.cms-design-section[data-design~="color"] > :first-child{color:var(--design-color)!important}
+.cms-design-section[data-design~="paddingTop"] > :first-child{padding-top:var(--design-paddingTop)!important}
+.cms-design-section[data-design~="paddingRight"] > :first-child{padding-right:var(--design-paddingRight)!important}
+.cms-design-section[data-design~="paddingBottom"] > :first-child{padding-bottom:var(--design-paddingBottom)!important}
+.cms-design-section[data-design~="paddingLeft"] > :first-child{padding-left:var(--design-paddingLeft)!important}
+.cms-design-section[data-design~="borderRadius"] > :first-child{border-radius:var(--design-borderRadius)!important}
+.cms-design-section[data-design~="borderWidth"] > :first-child{border:var(--design-borderWidth) solid var(--design-borderColor,currentColor)!important}
+.cms-design-section[data-design~="minHeight"] > :first-child{min-height:var(--design-minHeight)!important}
+.cms-design-section[data-design~="gap"] > :first-child{gap:var(--design-gap)!important}
+.cms-design-section[data-design~="align"] :is(h1,h2,h3,p){text-align:var(--design-align)!important}
+.cms-design-section[data-design~="buttonBackground"] :is(.btn,.cin-btn,.cinematic-button){background:var(--design-buttonBackground)!important}
+.cms-design-section[data-design~="buttonColor"] :is(.btn,.cin-btn,.cinematic-button){color:var(--design-buttonColor)!important}
+body[data-site-theme="true"]{background:var(--site-background)!important;color:var(--site-text)!important}
+body[data-site-theme="true"] :is(.page-home,.page-shop,.page-collections,.page-about,.cin-hero,.cin-film-stage,.cin-edit,.cin-manifesto,.cin-shop,.cin-lookbook,.cinematic-home){background-color:var(--site-background)!important;color:var(--site-text)}
+body[data-site-theme="true"] .cin-nav{background:var(--site-header)!important}
+body[data-site-theme="true"] .cin-footer{background:var(--site-footer)!important}
+body[data-site-theme="true"] :is(.cin-hero-desc,.cin-nav-links a,.cin-nav-action,.cin-footer-bottom){color:var(--site-text)!important}
+body[data-site-theme="true"] .cin-hero::before{background:linear-gradient(90deg,var(--site-background),transparent)!important}
+.site-appearance-editor{padding:20px;border:1px solid #cfc7bc;background:#faf7f1;color:#211a16;margin:12px 0}
+.site-appearance-editor summary{cursor:pointer;font-weight:700}.site-appearance-editor fieldset{border:0;padding:0}.site-appearance-editor input[type=color]{width:100%;min-height:42px}.site-appearance-editor p{line-height:1.6}
+.aic-message-images{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.aic-message-images img{display:block;width:140px;max-height:180px;object-fit:contain;border-radius:10px;background:#222}
+.aic-chip img{width:64px!important;height:64px!important;object-fit:contain!important}.aic-chip{min-height:72px}.aic-chips{max-height:180px;overflow:auto}
+.ai-reference-preview img{max-width:100%;max-height:230px;object-fit:contain}.ai-reference-preview{margin:12px 0}
+.ai-tool-card{padding:18px;border:1px solid #7775;border-radius:12px;margin:12px 0}.ai-tool-card button,.ai-tool-card select{min-height:42px}.ai-tool-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.ai-camera-stage{position:relative;background:#111;aspect-ratio:3/4;overflow:hidden;border-radius:12px}.ai-camera-stage video{width:100%;height:100%;object-fit:contain;transform:scaleX(-1)}.ai-camera-stage canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.voice-orb{width:90px;height:90px;border-radius:50%;margin:18px auto;background:radial-gradient(circle at 30% 30%,#fbf7eb,#b0d94a 55%,#204a38);box-shadow:0 0 35px #b0d94a33}.voice-orb.is-active{animation:voice-breathe 1.8s ease-in-out infinite}.voice-caption{min-height:50px;line-height:1.6}.voice-call{text-align:center}.voice-call .ai-tool-actions{justify-content:center}
+@keyframes voice-breathe{50%{transform:scale(1.08);box-shadow:0 0 55px #b0d94a66}}
+@media(prefers-reduced-motion:reduce){.voice-orb.is-active{animation:none}}

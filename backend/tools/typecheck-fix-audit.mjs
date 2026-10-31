@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+const src = fs.readFileSync(new URL('../../frontend/components/storefront/storefront.tsx', import.meta.url), 'utf8');
+let pass = 0; let total = 0;
+const check = (name, ok) => { total++; if (ok) { pass++; console.log(`PASS :: ${name}`); } else console.log(`FAIL :: ${name}`); };
+check('shop category projection has an explicit category shape', /const allCats:\s*Array<\{name: string; slug: string\}>\s*=\s*Array\.isArray\(categories\)/.test(src));
+check('selected category labels derive from a typed array', /allCats\.filter\(c=>cat\.includes\(c\.slug\)\)\.map\(c=>c\.name\)/.test(src));
+check('product page defines wishlist input with safe empty default', /function ProductPage\(\{id,products,wish=\[\],onNavigate,onAddCart,onToggleWish,onNotify\}:any\)/.test(src));
+check('product recommendations receive the defined wishlist', /ProductRecommendations product=\{p\} products=\{products\} wish=\{wish\}/.test(src));
+check('outfit builder products are typed as Product[]', /function Builder\(\{products,onNavigate,onNotify\}:\{products: Product\[\]; onNavigate: \(path: string\) => void; onNotify: \(message: string\) => void\}\)/.test(src));
+const nativeRoute = src.match(/function NativeCmsRoute\([\s\S]*?\n\nfunction HeroSlider/);
+check('CMS native shop receives live categories', /function NativeCmsRoute\(\{route,products,categories=\[\],wish,/.test(src) && /case\"shop\":return <Shop \{\.\.\.\{products,wish,onNavigate,onToggleWish,onAddCart,searchParams,categories,settings\}\}/.test(nativeRoute?.[0] || ''));
+check('CMS native route no longer hardcodes empty categories', Boolean(nativeRoute) && !/categories:\[\]/.test(nativeRoute[0]));
+console.log(`TYPECHECK_FIX_AUDIT=${pass}/${total} ${pass===total?'PASS':'FAIL'}`);
+process.exit(pass===total?0:1);

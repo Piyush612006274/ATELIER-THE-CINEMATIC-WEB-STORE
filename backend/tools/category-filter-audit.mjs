@@ -1,0 +1,25 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { loadGlobalCssParts } from "./css-source.mjs";
+const root = process.argv[2] || process.cwd();
+const src = fs.readFileSync(path.join(root,'frontend/components/storefront/storefront.tsx'),'utf8');
+const cssParts = loadGlobalCssParts(root);
+const css = cssParts.join('\n');
+let pass=0,total=0;
+function check(name, ok){ total++; if(ok){pass++; console.log(`PASS :: ${name}`)} else console.log(`FAIL :: ${name}`); }
+check('shop category trigger exists', /category-filter-trigger/.test(src));
+check('categories are sourced from typed live category data', /allCats:\s*Array<\{name:\s*string;\s*slug:\s*string\}>\s*=\s*Array\.isArray\(categories\)/.test(src) && /categories\s*\)\s*\?\s*\(categories as Array<\{name: string; slug: string\}>\)/.test(src) || /allCats=categories\.length\?categories\.map/.test(src));
+check('click toggles category menu', /onClick=\{\(\)=>setCategoryOpen\(v=>!v\)\}/.test(src));
+check('menu exposes menu semantics', /role="menu"[^>]+aria-label="Shop categories"/.test(src));
+check('options expose checked state', /role="menuitemcheckbox" aria-checked=\{selected\}/.test(src));
+check('multi-select category filtering retained', /toggle\(cat,c\.slug,setCat\)/.test(src));
+check('selected count visible', /cat\.length>0&&<b>\{cat\.length\}<\/b>/.test(src));
+check('clear categories action exists', /Clear categories/.test(src));
+check('escape closes menu', /e\.key==="Escape"\)setCategoryOpen\(false\)/.test(src));
+check('outside pointer closes menu', /!categoryRef\.current\.contains\(e\.target as Node\).*setCategoryOpen\(false\)/.test(src));
+check('menu is scrollable on long category lists', /max-height:min\(420px,65vh\);overflow:auto/.test(css));
+check('mobile menu width is constrained', /\.category-filter-menu\{left:0;right:auto;width:min\(300px,calc\(100vw - 32px\)\)\}/.test(css));
+check('category filter remains keyboard operable', /<button type="button" role="menuitemcheckbox"/.test(src));
+check('category filter visually indicates active state', /category-filter-trigger:hover,.category-filter-trigger.active/.test(css) && /category-filter-option:hover,.category-filter-option.selected/.test(css));
+console.log(`CATEGORY_FILTER_AUDIT=${pass}/${total} ${pass===total?'PASS':'FAIL'}`);
+process.exit(pass===total?0:1);
